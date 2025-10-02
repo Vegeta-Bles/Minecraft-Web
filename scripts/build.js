@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { createRuntimeTemplate } from '../src/template-runtime.js';
 
 async function main() {
-  const runtime = createRuntimeTemplate();
+  const runtime = await createRuntimeTemplate();
   const outDir = resolve(process.cwd(), 'dist');
   await mkdir(outDir, { recursive: true });
   await writeFile(resolve(outDir, 'runtime.js'), runtime, 'utf8');

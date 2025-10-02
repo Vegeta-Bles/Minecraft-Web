@@ -9,7 +9,7 @@ export class LiteVMRuntime {
     this.staticFields = new Map();
 
     for (const cls of manifest) {
-      const normalizedName = cls.className.split('\\\').join('/');
+      const normalizedName = cls.className.replace(/\\\\/g, '/');
       const methods = new Map();
       for (const method of cls.methods) {
         const key = this._methodKey(method.name, method.descriptor);
@@ -32,7 +32,7 @@ export class LiteVMRuntime {
   }
 
   _lookupClass(className) {
-    const key = className.split('\\\').join('/');
+    const key = className.replace(/\\\\/g, '/');
     return this.classes.get(key) || null;
   }
 

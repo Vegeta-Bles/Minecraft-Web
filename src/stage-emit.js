@@ -3,7 +3,7 @@ import { createRuntimeTemplate } from './template-runtime.js';
 
 export async function emitBundle({ classes, format = 'esm', runtimeMode = 'embedded' }) {
   const normalized = normalizeClasses(classes);
-  const runtime = createRuntimeTemplate();
+  const runtime = await createRuntimeTemplate();
   const manifest = JSON.stringify(normalized, null, 2);
 
   let code = '';

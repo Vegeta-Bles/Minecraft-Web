@@ -1,8 +1,10 @@
+import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { compileJar } from './pipeline.js';
 
-const pkg = await import('../package.json', { assert: { type: 'json' } });
+const require = createRequire(import.meta.url);
+const pkg = require('../package.json');
 
 function parseArgs(argv) {
   const args = {
@@ -29,7 +31,7 @@ function parseArgs(argv) {
         break;
       case '--version':
       case '-v':
-        console.log(`litevm v${pkg.default.version}`);
+        console.log(`litevm v${pkg.version}`);
         process.exit(0);
         break;
       case '--help':
@@ -50,7 +52,7 @@ function parseArgs(argv) {
 }
 
 function printHelp() {
-  console.log(`litevm v${pkg.default.version}\n\n` +
+  console.log(`litevm v${pkg.version}\n\n` +
     'Usage: litevm --jar <input.jar> [--out dist/game.js] [--format esm|iife]\n\n' +
     'Options:\n' +
     '  --jar       Path to the input JAR archive\n' +
